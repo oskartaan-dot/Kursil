@@ -1,255 +1,283 @@
 <!DOCTYPE html>
 <html lang="et">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Õpilase motivatsioon ja tõhus õppimine</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KURSIL | Motivatsiooni ja Õppimise Arhitektuur</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;1,400&family=Montserrat:wght@100;300;400;600&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg: #F8F7F4;
+            --accent: #1A1A1A;
+            --secondary: #7C7C7C;
+            --white: #FFFFFF;
+            --clay: #E2DFD9;
+            --border: rgba(0, 0, 0, 0.08);
+            --shadow: 0 30px 60px rgba(0,0,0,0.05);
+        }
 
-<style>
-body {
-    font-family: "Segoe UI", Arial, sans-serif;
-    margin: 0;
-    background: #f5f6f7;
-    color: #2d3436;
-}
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
 
-header {
-    background: #dcdde1;
-    padding: 40px;
-    text-align: center;
-}
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--bg);
+            color: var(--accent);
+            line-height: 1.8;
+        }
 
-h1 {
-    margin: 0;
-    font-size: 36px;
-}
+        /* --- NAVIGATION --- */
+        nav {
+            position: fixed;
+            top: 0; width: 100%;
+            padding: 25px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            background: rgba(248, 247, 244, 0.85);
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid var(--border);
+        }
 
-main {
-    max-width: 1000px;
-    margin: auto;
-    padding: 20px;
-}
+        .logo {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.8rem;
+            font-weight: 600;
+            letter-spacing: 4px;
+        }
 
-.section {
-    background: white;
-    padding: 25px;
-    margin-bottom: 25px;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-}
+        /* --- HERO --- */
+        .hero {
+            height: 90vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 0 10%;
+            background: linear-gradient(to bottom, #F0EFEA, var(--bg));
+        }
 
-h2 {
-    color: #636e72;
-}
+        .hero h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(3rem, 8vw, 6rem);
+            line-height: 1;
+            font-weight: 400;
+            margin-bottom: 20px;
+        }
 
-.progress-bar {
-    background: #dfe6e9;
-    border-radius: 20px;
-    overflow: hidden;
-    margin: 10px 0;
-}
+        /* --- SEKTSIOONID --- */
+        .section {
+            padding: 100px 10%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
 
-.progress {
-    height: 20px;
-    background: #b2bec3;
-}
+        .card {
+            background: var(--white);
+            padding: 50px;
+            border-radius: 2px;
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow);
+            margin-bottom: 50px;
+        }
 
-.quote {
-    background: #f1f2f6;
-    padding: 15px;
-    border-left: 5px solid #b2bec3;
-    margin: 10px 0;
-    font-style: italic;
-}
+        /* --- PROGRESS BARID --- */
+        .progress-container { margin: 30px 0; }
+        .progress-label { display: flex; justify-content: space-between; font-size: 0.8rem; text-transform: uppercase; margin-bottom: 10px; letter-spacing: 1px; }
+        .progress-bg { background: var(--bg); border-radius: 50px; height: 8px; overflow: hidden; }
+        .progress-fill { background: var(--accent); height: 100%; width: 0; transition: width 2s cubic-bezier(0.16, 1, 0.3, 1); }
 
-button {
-    padding: 10px 15px;
-    border: none;
-    background: #b2bec3;
-    border-radius: 6px;
-    cursor: pointer;
-}
+        /* --- MOTIVATSIOONI GENERATOR --- */
+        .quote-box {
+            text-align: center;
+            padding: 60px;
+            background: var(--accent);
+            color: var(--white);
+            margin: 50px 0;
+        }
 
-button:hover {
-    background: #95a5a6;
-}
+        #quote-text { font-family: 'Cormorant Garamond', serif; font-size: 2.2rem; font-style: italic; margin-bottom: 30px; min-height: 100px; }
 
-.hidden {
-    display: none;
-}
+        /* --- TO-DO / TEST --- */
+        .interactive-box { background: var(--clay); padding: 40px; margin-top: 20px; }
+        .hidden { display: none; margin-top: 15px; font-style: italic; color: #555; }
 
-footer {
-    text-align: center;
-    padding: 20px;
-    background: #dcdde1;
-}
-</style>
+        button {
+            background: var(--accent);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-size: 0.7rem;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover { opacity: 0.8; transform: translateY(-2px); }
+
+        /* --- TABEL / PLANN --- */
+        table { width: 100%; border-collapse: collapse; margin-top: 30px; }
+        th, td { text-align: left; padding: 20px; border-bottom: 1px solid var(--border); }
+        th { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; }
+
+        footer { background: var(--accent); color: white; padding: 80px 10%; text-align: center; }
+
+        /* ANIMATSIOON */
+        .reveal { opacity: 0; transform: translateY(30px); transition: 1s all ease; }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+    </style>
 </head>
-
 <body>
 
-<header>
-<h1>Õpilase motivatsioon ja parem õppimine</h1>
-<p>Praktiline juhend edukamaks õppimiseks</p>
+<nav>
+    <div class="logo">KURSIL</div>
+    <div style="font-size: 0.7rem; letter-spacing: 2px;">TEADUS • EDU • FOOKUS</div>
+</nav>
+
+<header class="hero">
+    <p style="letter-spacing: 5px; color: var(--secondary); margin-bottom: 20px;">PROJEKT 2026</p>
+    <h1>Õppimine ei ole <br><em>annne</em>, vaid süsteem.</h1>
+    <p style="max-width: 600px; margin-top: 30px; color: var(--secondary);">Ühendame psühholoogia ja tehnoloogia, et muuta sinu koolikogemus tähendusrikkaks.</p>
 </header>
 
 <main>
+    <section class="section">
+        <div class="card reveal">
+            <h2 style="font-family: 'Cormorant Garamond', serif; font-size: 3rem; margin-bottom: 20px;">01. Motivatsiooni loomus</h2>
+            <p>Motivatsioon on kütus, aga süsteem on mootor. Me jagame motivatsiooni kaheks:</p>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-top: 30px;">
+                <div>
+                    <strong>Sisemine (Intrinsic)</strong>
+                    <p style="font-size: 0.9rem; color: var(--secondary);">Sinu isiklik huvi, soov areneda ja mõista maailma. See on pikaajaline ja purunematu.</p>
+                </div>
+                <div>
+                    <strong>Väline (Extrinsic)</strong>
+                    <p style="font-size: 0.9rem; color: var(--secondary);">Hinded, tunnustus, hirm ebaõnnestumise ees. See aitab alustada, aga sellest üksi ei piisa.</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-<div class="section">
-<h2>Mis on motivatsioon?</h2>
-<p>
-Motivatsioon on jõud, mis paneb sind tegutsema isegi siis, kui sa ei tunne selleks tahtmist.
-See võib olla sisemine (huvi, eesmärk, areng) või väline (hinded, surve, tasu).
-</p>
-<p>
-Kõige tugevam motivatsioon tuleb seest – kui sa mõistad, miks sa midagi teed.
-</p>
-</div>
+    <section class="section" style="background: var(--white);">
+        <h2 style="font-family: 'Cormorant Garamond', serif; font-size: 2.5rem; text-align: center;">Efektiivsuse kordajad</h2>
+        <div class="progress-container">
+            <div class="progress-label"><span>Teistele õpetamine (Lapsehoidja efekt)</span><span>90%</span></div>
+            <div class="progress-bg"><div class="progress-fill" style="width: 90%;"></div></div>
+        </div>
+        <div class="progress-container">
+            <div class="progress-label"><span>Regulaarne unerežiim (Mälu konsolideerimine)</span><span>85%</span></div>
+            <div class="progress-bg"><div class="progress-fill" style="width: 85%;"></div></div>
+        </div>
+        <div class="progress-container">
+            <div class="progress-label"><span>Kordamine 24h jooksul</span><span>60%</span></div>
+            <div class="progress-bg"><div class="progress-fill" style="width: 60%;"></div></div>
+        </div>
+        <div class="progress-container">
+            <div class="progress-label"><span>Passiivne lugemine</span><span>10%</span></div>
+            <div class="progress-bg"><div class="progress-fill" style="width: 10%;"></div></div>
+        </div>
+    </section>
 
-<div class="section">
-<h2>Õppimise teaduslikud näitajad</h2>
+    <section class="quote-box">
+        <div id="quote-text">"Edu on järjepidevus, mitte sähvatus."</div>
+        <button onclick="newQuote()" style="background: white; color: black;">Uus perspektiiv</button>
+    </section>
 
-<p>Kordamine 24 tunni jooksul:</p>
-<div class="progress-bar"><div class="progress" style="width:60%"></div></div>
+    <section class="section">
+        <div class="card reveal">
+            <h2 style="font-family: 'Cormorant Garamond', serif; font-size: 2.5rem;">Eneseanalüüs</h2>
+            <div class="interactive-box">
+                <p>Kas sa kasutad õppimisel pause?</p>
+                <button onclick="toggleTest('t1')">Vasta</button>
+                <p id="t1" class="hidden">Pomodoro (25+5) hoiab aju töövõimelisena ja väldib üleväsimust.</p>
+            </div>
+            <div class="interactive-box">
+                <p>Kas sa kordad materjali ilma vihikut vaatamata?</p>
+                <button onclick="toggleTest('t2')">Vasta</button>
+                <p id="t2" class="hidden">Seda nimetatakse aktiivseks meenutamiseks (Active Recall) ja see on kõige kiirem viis õppimiseks.</p>
+            </div>
+        </div>
+    </section>
 
-<p>Teistele õpetamine:</p>
-<div class="progress-bar"><div class="progress" style="width:90%"></div></div>
+    <section class="section">
+        <h2 style="font-family: 'Cormorant Garamond', serif; font-size: 2.5rem;">Strateegiline nädalaplaan</h2>
+        <table>
+            <thead>
+                <tr><th>Päev</th><th>Fookus</th><th>Meetod</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>Esmaspäev</td><td>Uus materjal</td><td>Pomodoro (4 tsüklit)</td></tr>
+                <tr><td>Teisipäev</td><td>Keeled / Sõnavara</td><td>Mälukaardid (Anki)</td></tr>
+                <tr><td>Kolmapäev</td><td>Kordamine</td><td>Aktiivne meenutamine</td></tr>
+                <tr><td>Neljapäev</td><td>Rasked ülesanded</td><td>Feynmani meetod</td></tr>
+                <tr><td>Reede</td><td>Kokkuvõte</td><td>Mind-mapping</td></tr>
+            </tbody>
+        </table>
+    </section>
 
-<p>Regulaarne uni:</p>
-<div class="progress-bar"><div class="progress" style="width:80%"></div></div>
-
-<p>Fookustatud õppimine:</p>
-<div class="progress-bar"><div class="progress" style="width:40%"></div></div>
-
-</div>
-
-<div class="section">
-<h2>Kuidas aju õpib?</h2>
-<p>
-Aju loob uusi seoseid iga kord, kui sa midagi õpid. Mida rohkem sa kordad,
-seda tugevamaks need seosed muutuvad.
-</p>
-<p>
-Parim viis õppimiseks:
-</p>
-<ul>
-<li>Aktiivne meenutamine</li>
-<li>Kordamine ajavahedega</li>
-<li>Praktiline kasutamine</li>
-</ul>
-</div>
-
-<div class="section">
-<h2>Õppimisstrateegiad</h2>
-
-<h3>1. Pomodoro tehnika</h3>
-<p>25 min õppimist + 5 min paus</p>
-
-<h3>2. Aktiivne meenutamine</h3>
-<p>Proovi infot meenutada ilma materjali vaatamata</p>
-
-<h3>3. Hajutatud õppimine</h3>
-<p>Õpi mitme päeva jooksul, mitte korraga</p>
-
-<h3>4. Visuaalne õppimine</h3>
-<p>Skeemid, diagrammid, värvid</p>
-
-</div>
-
-<div class="section">
-<h2>Motivatsiooni säilitamine</h2>
-
-<ul>
-<li>Sea selged eesmärgid</li>
-<li>Jälgi oma arengut</li>
-<li>Premeeri ennast</li>
-<li>Vähenda segajaid</li>
-<li>Loo rutiin</li>
-</ul>
-
-</div>
-
-<div class="section">
-<h2>Levinud vead</h2>
-<ul>
-<li>Viimasele minutile jätmine</li>
-<li>Telefoni kasutamine õppimise ajal</li>
-<li>Passiivne lugemine</li>
-<li>Üleõppimine ilma pausita</li>
-</ul>
-</div>
-
-<div class="section">
-<h2>Enesehindamise test</h2>
-
-<p>Kas sa õpid regulaarselt?</p>
-<button onclick="showResult('r1')">Jah / Ei</button>
-<p id="r1" class="hidden">Regulaarsus on edu alus!</p>
-
-<p>Kas sa kordad materjali?</p>
-<button onclick="showResult('r2')">Jah / Ei</button>
-<p id="r2" class="hidden">Kordamine tugevdab mälu.</p>
-
-</div>
-
-<div class="section">
-<h2>Motivatsioonilaused</h2>
-
-<div class="quote">Edu tuleb järjepidevusest.</div>
-<div class="quote">Sa oled võimeline rohkemaks.</div>
-<div class="quote">Ära anna alla.</div>
-<div class="quote">Iga päev on uus algus.</div>
-<div class="quote">Pingutus loob tulemuse.</div>
-<div class="quote">Sa ei pea olema parim, vaid parem kui eile.</div>
-
-</div>
-
-<div class="section">
-<h2>Õppimisplaan (näidis)</h2>
-
-<p><b>Esmaspäev:</b> 30 min matemaatika</p>
-<p><b>Teisipäev:</b> 30 min keel</p>
-<p><b>Kolmapäev:</b> kordamine</p>
-<p><b>Neljapäev:</b> harjutused</p>
-<p><b>Reede:</b> kokkuvõte</p>
-
-</div>
-
-<div class="section">
-<h2>Pikaajaline edu</h2>
-<p>
-Edu ei tule korraga. See tekib igapäevaste väikeste harjumuste kaudu.
-</p>
-<p>
-Kõige tähtsamad tegurid:
-</p>
-<ul>
-<li>Järjepidevus</li>
-<li>Distsipliin</li>
-<li>Kannatlikkus</li>
-</ul>
-</div>
-
-<div class="section">
-<h2>Kokkuvõte</h2>
-<p>
-Motivatsioon + õiged õppimisviisid = edu.
-</p>
-<p>
-Ära oota motivatsiooni – loo see ise läbi tegutsemise.
-</p>
-</div>
-
+    <section class="section" style="font-size: 0.8rem; color: var(--secondary); border-top: 1px solid var(--border);">
+        <p><strong>Infoallikad ja inspiratsioon:</strong><br>
+        • Dr. Barbara Oakley "Learning How to Learn"<br>
+        • Carol Dweck "Mindset: The New Psychology of Success"<br>
+        • Cal Newport "Deep Work"<br>
+        • Tehniline teostus: Gemini AI x Sinu visioon</p>
+    </section>
 </main>
 
 <footer>
-<p>© 2026 Õppimise juhend</p>
+    <div class="logo" style="margin-bottom: 20px;">KURSIL</div>
+    <p>© 2026 Kooliprojekt | Loodud teadlikuks arenguks</p>
 </footer>
 
 <script>
-function showResult(id) {
-    document.getElementById(id).classList.toggle("hidden");
-}
+    // Tsitaadid
+    const quotes = [
+        "Edu tuleb järjepidevusest, mitte juhusest.",
+        "Sa oled võimeline rohkemaks, kui su aju praegu usub.",
+        "Ära oota motivatsiooni, loo see läbi esimese sammu.",
+        "Pingutus on märk sellest, et su närviseosed tugevnevad.",
+        "Iga eksimus on tasuta õppetund.",
+        "Keskendu protsessile, tulemus järgneb ise."
+    ];
+
+    function newQuote() {
+        const txt = document.getElementById('quote-text');
+        const rand = Math.floor(Math.random() * quotes.length);
+        txt.style.opacity = 0;
+        setTimeout(() => {
+            txt.innerText = '"' + quotes[rand] + '"';
+            txt.style.opacity = 1;
+        }, 400);
+    }
+    document.getElementById('quote-text').style.transition = 'opacity 0.4s';
+
+    // Testi funktsioon
+    function toggleTest(id) {
+        document.getElementById(id).classList.toggle("hidden");
+    }
+
+    // Scroll Reveal
+    window.addEventListener('scroll', () => {
+        const reveals = document.querySelectorAll('.reveal');
+        reveals.forEach(el => {
+            const windowHeight = window.innerHeight;
+            const revealTop = el.getBoundingClientRect().top;
+            if (revealTop < windowHeight - 100) el.classList.add('active');
+        });
+    });
+
+    // Aktiveeri progressiribad kerimisel
+    window.onload = () => {
+        const fills = document.querySelectorAll('.progress-fill');
+        fills.forEach(f => {
+            const w = f.style.width;
+            f.style.width = '0';
+            setTimeout(() => f.style.width = w, 500);
+        });
+    };
 </script>
 
 </body>
