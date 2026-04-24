@@ -3,225 +3,231 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KURSIL — Õppimise Arhitektuur</title>
+    <title>KURSIL | Akadeemiline Tipptase</title>
     
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Display:ital,wght@0,300;0,600;1,300&family=Montserrat:wght@200;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;1,400&family=Montserrat:wght@100;300;400;600&display=swap" rel="stylesheet">
     
     <style>
         :root {
-            --bg: #FDFCF8;
-            --surface: #FFFFFF;
-            --ink: #1A1A1A;
-            --clay: #7A7A7A;
-            --sand: #F2EDE4;
-            --soft-border: rgba(0,0,0,0.06);
-            --transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            --bg: #F8F7F4;
+            --accent: #1A1A1A;
+            --secondary: #7C7C7C;
+            --white: #FFFFFF;
+            --glass: rgba(255, 255, 255, 0.7);
+            --border: rgba(0, 0, 0, 0.08);
+            --shadow: 0 20px 40px rgba(0,0,0,0.03);
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * { margin: 0; padding: 0; box-sizing: border-box; outline: none; }
         html { scroll-behavior: smooth; }
 
         body {
             font-family: 'Montserrat', sans-serif;
             background-color: var(--bg);
-            color: var(--ink);
-            line-height: 1.7;
+            color: var(--accent);
+            line-height: 1.8;
             overflow-x: hidden;
         }
 
-        /* --- NAV --- */
+        /* --- NAVIGATION --- */
         nav {
             position: fixed;
-            top: 0;
-            width: 100%;
-            padding: 30px 6%;
+            top: 0; width: 100%;
+            padding: 25px 5%;
             display: flex;
             justify-content: space-between;
+            align-items: center;
             z-index: 1000;
-            background: rgba(253, 252, 248, 0.8);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid var(--soft-border);
+            background: var(--glass);
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid var(--border);
         }
 
         .logo {
-            font-family: 'Cormorant Display', serif;
+            font-family: 'Cormorant Garamond', serif;
             font-size: 1.8rem;
             font-weight: 600;
-            letter-spacing: 2px;
+            letter-spacing: 4px;
             text-transform: uppercase;
         }
 
         .nav-links a {
             text-decoration: none;
-            color: var(--clay);
-            font-size: 0.8rem;
+            color: var(--secondary);
+            font-size: 0.75rem;
             text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-left: 30px;
-            transition: var(--transition);
+            letter-spacing: 2px;
+            margin-left: 35px;
+            transition: 0.4s;
         }
 
-        .nav-links a:hover { color: var(--ink); }
+        .nav-links a:hover { color: var(--accent); }
 
-        /* --- HERO --- */
+        /* --- HERO SECTION --- */
         .hero {
             height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             padding: 0 10%;
-            position: relative;
+            background: radial-gradient(circle at 80% 20%, #EFEBE5 0%, var(--bg) 50%);
         }
 
-        .hero-label {
-            font-size: 0.9rem;
+        .hero span {
+            font-size: 0.8rem;
             text-transform: uppercase;
-            letter-spacing: 4px;
-            color: var(--clay);
+            letter-spacing: 5px;
+            color: var(--secondary);
             margin-bottom: 20px;
             display: block;
         }
 
         .hero h1 {
-            font-family: 'Cormorant Display', serif;
-            font-size: clamp(3rem, 8vw, 6rem);
-            line-height: 1.1;
-            font-weight: 300;
-            max-width: 900px;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(3.5rem, 10vw, 7.5rem);
+            line-height: 0.95;
+            font-weight: 400;
+            max-width: 1100px;
         }
 
-        .hero h1 span { font-style: italic; font-weight: 600; }
+        .hero h1 em { font-style: italic; font-weight: 600; }
 
-        .scroll-indicator {
-            position: absolute;
-            bottom: 40px;
-            left: 10%;
-            font-size: 0.7rem;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            writing-mode: vertical-rl;
-            color: var(--clay);
-        }
-
-        /* --- MOTIVATSIOONI MOODUL --- */
-        .quote-section {
-            padding: 100px 10%;
-            background: var(--sand);
+        /* --- STATISTICS BAR --- */
+        .stats-bar {
+            padding: 80px 10%;
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            background: var(--white);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .stat-item h3 { font-family: 'Cormorant Garamond', serif; font-size: 3.5rem; line-height: 1; }
+        .stat-item p { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; color: var(--secondary); }
+
+        /* --- INTERACTIVE QUOTE MODAL --- */
+        .quote-wrap {
+            padding: 120px 10%;
+            display: flex;
+            justify-content: center;
+        }
+
+        .quote-box {
+            background: var(--white);
+            padding: 80px;
+            max-width: 900px;
+            width: 100%;
+            text-align: center;
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow);
+            position: relative;
+        }
+
+        .quote-box::before {
+            content: "“";
+            position: absolute;
+            top: 20px; left: 50%;
+            transform: translateX(-50%);
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 8rem;
+            color: var(--border);
+        }
+
+        #quote-display {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.5rem;
+            font-style: italic;
+            margin-bottom: 40px;
+            min-height: 150px;
+            display: flex;
             align-items: center;
-            gap: 60px;
+            justify-content: center;
+            transition: opacity 0.5s;
         }
 
-        .quote-card {
-            background: var(--surface);
-            padding: 60px;
-            border-radius: 0;
-            border: 1px solid var(--soft-border);
-        }
-
-        #quote-text {
-            font-family: 'Cormorant Display', serif;
-            font-size: 2.2rem;
-            line-height: 1.3;
-            margin-bottom: 30px;
-            min-height: 120px;
-        }
-
-        .refresh-btn {
-            background: var(--ink);
-            color: white;
+        .btn-main {
+            background: var(--accent);
+            color: var(--white);
             border: none;
-            padding: 15px 40px;
-            cursor: pointer;
+            padding: 20px 50px;
             font-family: 'Montserrat', sans-serif;
             font-size: 0.8rem;
-            letter-spacing: 2px;
+            letter-spacing: 3px;
             text-transform: uppercase;
-            transition: var(--transition);
+            cursor: pointer;
+            transition: 0.4s;
         }
 
-        .refresh-btn:hover { opacity: 0.8; transform: translateY(-3px); }
+        .btn-main:hover { letter-spacing: 5px; opacity: 0.9; }
 
-        /* --- STRATEEGIA SEKTSIOON --- */
-        .section { padding: 120px 10%; }
-
-        .section-tag { color: var(--clay); font-size: 0.8rem; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 20px; display: block; }
-        
-        .section h2 {
-            font-family: 'Cormorant Display', serif;
-            font-size: 3.5rem;
-            margin-bottom: 60px;
-            max-width: 600px;
-        }
-
-        .features {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1px;
-            background: var(--soft-border);
-        }
-
-        .feature-item {
-            background: var(--bg);
-            padding: 60px 40px;
-            transition: var(--transition);
-        }
-
-        .feature-item:hover { background: var(--surface); }
-
-        .num { font-family: 'Cormorant Display', serif; font-size: 1.5rem; color: var(--clay); margin-bottom: 30px; display: block; }
-
-        .feature-item h3 { font-size: 1.4rem; margin-bottom: 20px; font-weight: 600; }
-
-        .feature-item p { color: var(--clay); font-size: 1rem; }
-
-        /* --- FOCUS TIMER DISPLAY --- */
-        .timer-preview {
-            background: var(--ink);
-            color: var(--white);
+        /* --- TO-DO LIST (NEW) --- */
+        .todo-section {
             padding: 100px 10%;
-            text-align: center;
-            color: #fff;
+            background: #F0EFEA;
         }
 
-        .timer-display {
-            font-family: 'Cormorant Display', serif;
-            font-size: 10rem;
-            font-weight: 300;
-            line-height: 1;
-            margin: 40px 0;
-            opacity: 0.9;
+        .todo-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: var(--white);
+            padding: 40px;
+            box-shadow: var(--shadow);
         }
+
+        .todo-header { margin-bottom: 30px; border-bottom: 2px solid var(--accent); padding-bottom: 10px; }
+        
+        .todo-input-wrap { display: flex; gap: 10px; margin-bottom: 20px; }
+        
+        input[type="text"] {
+            flex: 1;
+            padding: 15px;
+            border: 1px solid var(--border);
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .todo-list { list-style: none; }
+        .todo-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 15px 0;
+            border-bottom: 1px solid var(--border);
+        }
+        .todo-item.done { text-decoration: line-through; opacity: 0.5; }
+
+        /* --- CONTENT SECTIONS --- */
+        .content-sec { padding: 120px 10%; }
+        .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 60px; }
+        
+        .feature-card { transition: 0.5s; }
+        .feature-card span { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; color: var(--secondary); }
+        .feature-card h4 { font-size: 1.5rem; margin: 20px 0; letter-spacing: 1px; }
+        .feature-card p { color: var(--secondary); font-weight: 300; }
 
         /* --- FOOTER --- */
         footer {
-            padding: 100px 10%;
-            background: #111;
-            color: #fff;
+            background: var(--accent);
+            color: var(--white);
+            padding: 100px 10% 40px;
         }
 
         .footer-grid {
             display: grid;
             grid-template-columns: 2fr 1fr 1fr;
             gap: 100px;
+            margin-bottom: 80px;
         }
 
-        .footer-logo { font-family: 'Cormorant Display', serif; font-size: 2.5rem; margin-bottom: 20px; }
+        .footer-col h5 { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 3px; margin-bottom: 30px; opacity: 0.5; }
+        .footer-col p, .footer-col a { color: var(--white); opacity: 0.7; text-decoration: none; font-size: 0.9rem; display: block; margin-bottom: 15px; }
 
-        .footer-col h4 { text-transform: uppercase; font-size: 0.7rem; letter-spacing: 2px; color: var(--clay); margin-bottom: 20px; }
-        
-        .footer-col p, .footer-col a { color: #888; font-size: 0.9rem; text-decoration: none; display: block; margin-bottom: 10px; }
-
-        /* ANIMATSIOONID */
-        .reveal { opacity: 0; transform: translateY(30px); transition: all 1s ease-out; }
+        /* ANIMATIONS */
+        .reveal { opacity: 0; transform: translateY(40px); transition: 1s all ease; }
         .reveal.active { opacity: 1; transform: translateY(0); }
 
         @media (max-width: 900px) {
-            .hero h1 { font-size: 3.5rem; }
-            .quote-section { grid-template-columns: 1fr; }
+            .hero h1 { font-size: 4rem; }
             .footer-grid { grid-template-columns: 1fr; gap: 50px; }
-            .timer-display { font-size: 5rem; }
+            .quote-box { padding: 40px 20px; }
         }
     </style>
 </head>
@@ -230,125 +236,153 @@
     <nav>
         <div class="logo">Kursil</div>
         <div class="nav-links">
-            <a href="#meetodid">Meetodid</a>
-            <a href="#psuhholoogia">Psühholoogia</a>
-            <a href="#tooriistad">Tööriistad</a>
+            <a href="#fookus">Fookus</a>
+            <a href="#planeerija">Planeerija</a>
+            <a href="#teadus">Teadus</a>
         </div>
     </nav>
 
-    <header class="hero">
-        <span class="hero-label">Haridusliku arengu platvorm</span>
-        <h1>Õppimine on <span>kunst</span>, mida saab disainida.</h1>
-        <div class="scroll-indicator">Sisu avastamiseks keri alla</div>
-    </header>
+    <section class="hero">
+        <span>Est. 2024 — Akadeemiline Disain</span>
+        <h1>Muuda oma <em>mõtteviisi</em>,<br>muuda oma tulemust.</h1>
+    </section>
 
-    <section class="quote-section">
-        <div>
-            <span class="section-tag">Igapäevane impulss</span>
-            <h2 style="font-family: 'Cormorant Display', serif; font-size: 3rem;">Mõtted, mis loovad selgust.</h2>
-            <p style="color: var(--clay); max-width: 400px;">Meie valitud tsitaadid ei ole lihtsalt sõnad, vaid suunised sinu vaimsele ettevalmistusele.</p>
+    <section class="stats-bar">
+        <div class="stat-item">
+            <h3>40%</h3>
+            <p>Kõrgem keskendumisvõime</p>
         </div>
-        <div class="quote-card">
-            <div id="quote-text">"Keskendu protsessile, mitte ainult tulemusele. Iga samm loeb."</div>
-            <button class="refresh-btn" onclick="genQuote()">Uus perspektiiv</button>
+        <div class="stat-item">
+            <h3>25min</h3>
+            <p>Optimaalne fookustsükkel</p>
+        </div>
+        <div class="stat-item">
+            <h3>100+</h3>
+            <p>Teaduspõhist tehnikat</p>
+        </div>
+        <div class="stat-item">
+            <h3>∞</h3>
+            <p>Sinu arengupotentsiaal</p>
         </div>
     </section>
 
-    <section id="meetodid" class="section">
-        <span class="section-tag">Süsteemne lähenemine</span>
-        <h2>Kuidas saavutada akadeemiline meisterlikkus?</h2>
+    <section class="quote-wrap">
+        <div class="quote-box">
+            <div id="quote-display">"Distsipliin on sild eesmärkide ja saavutuste vahel."</div>
+            <button class="btn-main" onclick="updateQuote()">Uuenda vaatenurka</button>
+        </div>
+    </section>
+
+    <section id="planeerija" class="todo-section">
+        <div class="todo-container">
+            <div class="todo-header">
+                <h2 style="font-family: 'Cormorant Garamond', serif; font-size: 2rem;">Tänased prioriteedid</h2>
+            </div>
+            <div class="todo-input-wrap">
+                <input type="text" id="todo-input" placeholder="Lisa uus eesmärk...">
+                <button class="btn-main" onclick="addTodo()" style="padding: 10px 20px;">Lisa</button>
+            </div>
+            <ul id="todo-list" class="todo-list">
+                </ul>
+        </div>
+    </section>
+
+    <section id="fookus" class="content-sec">
+        <div style="margin-bottom: 80px;">
+            <p style="text-transform: uppercase; letter-spacing: 3px; font-size: 0.7rem; color: var(--secondary);">Süvitsi minemine</p>
+            <h2 style="font-family: 'Cormorant Garamond', serif; font-size: 3.5rem;">Fookuse Arhitektuur</h2>
+        </div>
         
-        <div class="features">
-            <div class="feature-item reveal">
-                <span class="num">01.</span>
-                <h3>Deep Work</h3>
-                <p>Keskendu üheks sessiooniks vaid ühele ülesandele. Nutitelefon teise tuppa. Teadus näitab, et multitasking vähendab IQ-d 10 punkti võrra.</p>
+        <div class="grid-3">
+            <div class="feature-card reveal">
+                <span>I.</span>
+                <h4>Dopamiini haldus</h4>
+                <p>Nutitelefoni märguanded hävitavad su "flow" seisundi. Meie aju vajab 23 minutit, et naasta sügavale keskendumistasemele pärast ühte katkestust.</p>
             </div>
-            <div class="feature-item reveal">
-                <span class="num">02.</span>
-                <h3>Aktiivne Recall</h3>
-                <p>Ära loe märkmeid üle. Sule raamat ja küsi endalt küsimusi. See sunnib aju looma uusi närviseoseid, mis on õppimise alus.</p>
+            <div class="feature-card reveal">
+                <span>II.</span>
+                <h4>Neuroplastilisus</h4>
+                <p>Iga kord, kui sa pingutad raske ülesande kallal, su närviseosed tugevnevad. Õppimine on füüsiline muutus su ajus. Ära karda pingutust.</p>
             </div>
-            <div class="feature-item reveal">
-                <span class="num">03.</span>
-                <h3>Vaimne puhkus</h3>
-                <p>Aju vajab "tühikäiku", et infot töödelda. Pärast rasket sessiooni mine jalutama, ilma muusika või ekraanita. Lase mõtetel settida.</p>
+            <div class="feature-card reveal">
+                <span>III.</span>
+                <h4>Une strateegia</h4>
+                <p>Info kinnistub pikaajalisse mällu just REM-une faasis. Õppimine ilma piisava uneta on nagu kirjutamine vette – miski ei jää püsima.</p>
             </div>
         </div>
     </section>
 
-    <section class="timer-preview">
-        <span class="section-tag" style="color: #666;">Fookuse seisund</span>
-        <h2 style="font-family: 'Cormorant Display', serif; font-size: 2.5rem; color: #fff;">Pomodoro rütm</h2>
-        <div class="timer-display" id="timer">25:00</div>
-        <p style="color: #888; font-weight: 200; letter-spacing: 1px;">Keskendu. Sa oled selleks võimeline.</p>
-    </section>
-
-    <section id="psuhholoogia" class="section">
-        <div style="max-width: 800px; margin: 0 auto; text-align: center;">
-            <span class="section-tag">Mõtteviis</span>
-            <h2 style="margin: 0 auto 40px;">Arenguuskumus</h2>
-            <p style="font-size: 1.2rem; color: var(--clay); font-weight: 300;">
-                Kool ei ole võistlus teistega, vaid võistlus oma eilse minaga. Iga kord, kui tunned raskust, su aju tegelikult areneb. See ongi õppimise tunne. Ära karda ebamugavust – tervita seda.
-            </p>
-        </div>
-    </section>
-
-    <footer id="tooriistad">
+    <footer>
         <div class="footer-grid">
             <div class="footer-col">
-                <div class="footer-logo">Kursil</div>
-                <p>Platvorm, mis on loodud lihtsustama keerulist ja tooma rahu ka kõige kiiremasse õppeperioodi.</p>
+                <div class="logo" style="margin-bottom: 20px;">Kursil</div>
+                <p>Eesti esimene minimalistlik õppeplatvorm, mis keskendub vaimsele tervisele ja akadeemilisele edule.</p>
             </div>
             <div class="footer-col">
-                <h4>Ressursid</h4>
-                <a href="#">Notion Template'id</a>
-                <a href="#">Fookuse muusika</a>
-                <a href="#">Õpimeetodite blogi</a>
+                <h5>Navigatsioon</h5>
+                <a href="#fookus">Fookuse meetodid</a>
+                <a href="#planeerija">Päeva planeerija</a>
+                <a href="#teadus">Allikmaterjalid</a>
             </div>
             <div class="footer-col">
-                <h4>Ühendus</h4>
-                <p>Väimela, Eesti</p>
-                <p>oskar.taan@edu.ewers.ee</p>
+                <h5>Allikad</h5>
+                <p>Cal Newport — Deep Work</p>
+                <p>Barbara Oakley — Learning How to Learn</p>
+                <p>Carol Dweck — Mindset</p>
             </div>
         </div>
-        <div style="margin-top: 80px; border-top: 1px solid #222; padding-top: 40px; text-align: center; font-size: 0.7rem; color: #444; letter-spacing: 2px;">
-            DESIGNED FOR DEPTH — 2026
+        <div style="text-align: center; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 40px; font-size: 0.6rem; letter-spacing: 2px; opacity: 0.4;">
+            © 2024 KURSIL LABS | KÕIK ÕIGUSED ON LOODUD ARENGUKS
         </div>
     </footer>
 
     <script>
-        // Tsitaatide andmebaas
+        // TSITAADID
         const quotes = [
-            "Edu ei ole lõplik, ebaõnnestumine ei ole fataalne: loeb vaid julgus jätkata.",
-            "Distsipliin on vabaduse kõrgeim vorm.",
-            "Targem on õppida tund aega täie fookusega kui neli tundi unistades.",
-            "Suurim takistus eduni on hirm ebaõnnestumise ees.",
-            "Su aju on lihas. Mida rohkem sa pingutad, seda tugevamaks see saab.",
-            "Kool on treeninglaager su tuleviku projektidele. Õpi meetodeid, mitte ainult fakte.",
-            "Puhkus on osa produktiivsusest. Ära põle läbi."
+            "Distsipliin on sild eesmärkide ja saavutuste vahel.",
+            "Tee täna midagi, mille eest tuleviku-mina on sulle tänulik.",
+            "Keskendu protsessile, mitte ainult tulemusele.",
+            "Edu on väikeste pingutuste summa, mida korratakse iga päev.",
+            "Sa ei pea olema täiuslik, et alustada, aga sa pead alustama, et olla täiuslik.",
+            "Tark õppimine on olulisem kui raske õppimine.",
+            "Sinu aju on piiritu ressurss. Kasuta seda targalt."
         ];
 
-        function genQuote() {
-            const el = document.getElementById('quote-text');
-            const rand = Math.floor(Math.random() * quotes.length);
-            el.style.opacity = 0;
+        function updateQuote() {
+            const display = document.getElementById('quote-display');
+            const random = Math.floor(Math.random() * quotes.length);
+            display.style.opacity = 0;
             setTimeout(() => {
-                el.innerText = '"' + quotes[rand] + '"';
-                el.style.opacity = 1;
-            }, 400);
+                display.innerText = '"' + quotes[random] + '"';
+                display.style.opacity = 1;
+            }, 500);
         }
-        document.getElementById('quote-text').style.transition = 'opacity 0.4s ease';
 
-        // Scroll Reveal efekt
+        // TO-DO LIST FUNKTSIONAALSUS
+        function addTodo() {
+            const input = document.getElementById('todo-input');
+            const val = input.value;
+            if (val === '') return;
+
+            const li = document.createElement('li');
+            li.className = 'todo-item';
+            li.innerHTML = `<span>${val}</span> <button onclick="this.parentElement.remove()" style="background:none; border:none; color:red; cursor:pointer;">Kustuta</button>`;
+            
+            li.onclick = function(e) {
+                if(e.target.tagName !== 'BUTTON') this.classList.toggle('done');
+            }
+
+            document.getElementById('todo-list').appendChild(li);
+            input.value = '';
+        }
+
+        // REVEAL ANIMATSIOON
         window.addEventListener('scroll', () => {
             const reveals = document.querySelectorAll('.reveal');
             reveals.forEach(el => {
                 const windowHeight = window.innerHeight;
                 const revealTop = el.getBoundingClientRect().top;
-                if (revealTop < windowHeight - 100) {
-                    el.classList.add('active');
-                }
+                if (revealTop < windowHeight - 100) el.classList.add('active');
             });
         });
     </script>
