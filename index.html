@@ -1,0 +1,198 @@
+<style>
+    /* 1. ÜLDISED STIILID JA VÄRVID */
+    :root {
+        --beez: #F5F2ED;
+        --must: #1a1a1a;
+        --hall: #A8A8A8;
+        --hele-hall: #f0f0f0;
+        --valge: #ffffff;
+    }
+
+    .edustep-site {
+        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        color: var(--must);
+        background-color: var(--valge);
+        line-height: 1.6;
+    }
+
+    /* 2. HERO SEKTSIOON */
+    .hero {
+        background-color: var(--beez);
+        padding: 80px 20px;
+        text-align: center;
+        border-bottom: 1px solid var(--hele-hall);
+    }
+
+    .hero h1 {
+        font-size: 3rem;
+        margin-bottom: 10px;
+        letter-spacing: -1px;
+    }
+
+    .hero p {
+        font-size: 1.2rem;
+        color: var(--hall);
+        max-width: 600px;
+        margin: 0 auto 30px;
+    }
+
+    /* 3. MOTIVATSIOONI NUPP */
+    .mot-box {
+        background: var(--must);
+        color: var(--valge);
+        padding: 30px;
+        border-radius: 4px;
+        display: inline-block;
+        min-width: 300px;
+    }
+
+    .mot-btn {
+        background: var(--valge);
+        color: var(--must);
+        border: none;
+        padding: 12px 24px;
+        font-weight: bold;
+        cursor: pointer;
+        text-transform: uppercase;
+        transition: 0.3s;
+    }
+
+    .mot-btn:hover {
+        background: var(--beez);
+    }
+
+    /* 4. SEKTSIOONID */
+    .section {
+        padding: 60px 20px;
+        max-width: 1000px;
+        margin: 0 auto;
+    }
+
+    .section-title {
+        text-align: center;
+        font-size: 2rem;
+        margin-bottom: 40px;
+        text-transform: uppercase;
+        border-bottom: 2px solid var(--must);
+        display: inline-block;
+    }
+
+    .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 20px;
+    }
+
+    .card {
+        background: var(--hele-hall);
+        padding: 30px;
+        border-left: 5px solid var(--must);
+    }
+
+    .card h3 {
+        margin-top: 0;
+        color: var(--must);
+    }
+
+    /* 5. LISTID JA TOOLKIT */
+    .toolkit {
+        background-color: var(--beez);
+        padding: 40px;
+        border-radius: 4px;
+    }
+
+    .toolkit ul {
+        list-style: none;
+        padding: 0;
+    }
+
+    .toolkit li {
+        margin-bottom: 15px;
+        padding-left: 30px;
+        position: relative;
+    }
+
+    .toolkit li::before {
+        content: "→";
+        position: absolute;
+        left: 0;
+        color: var(--hall);
+    }
+
+    footer {
+        text-align: center;
+        padding: 40px;
+        font-size: 0.9rem;
+        color: var(--hall);
+        border-top: 1px solid var(--hele-hall);
+    }
+</style>
+
+<div class="edustep-site">
+    <header class="hero">
+        <h1>EDUSTEP</h1>
+        <p>Sinu teekond targema õppimise ja tugevama motivatsioonini.</p>
+        
+        <div class="mot-box">
+            <button class="mot-btn" onclick="uusTsitaat()">Vajad tõuget?</button>
+            <p id="tsitaat-display" style="margin-top: 20px; color: white; font-style: italic; font-size: 1rem; min-height: 40px;">
+                Kliki nupule, et saada päevane annus motivatsiooni.
+            </p>
+        </div>
+    </header>
+
+    <section class="section">
+        <center><h2 class="section-title">Õpi Nutikalt</h2></center>
+        <div class="grid">
+            <div class="card">
+                <h3>🍅 Pomodoro</h3>
+                <p>Keskendu 25 minutit, puhka 5 minutit. See tsükkel hoiab aju värskena ja väldib üleväsimust.</p>
+            </div>
+            <div class="card">
+                <h3>🧠 Feynmani meetod</h3>
+                <p>Seleta õpitud materjal lahti nii, nagu räägiksid 5-aastasele. See paljastab lüngad sinu teadmistes.</p>
+            </div>
+            <div class="card">
+                <h3>📅 Hajutatud kordamine</h3>
+                <p>Ära õpi kõike ühe ööga. Korda materjali 1 päeva, 3 päeva ja nädala pärast.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" style="background: white;">
+        <center><h2 class="section-title">Digitaalne Tööriistakast</h2></center>
+        <div class="toolkit">
+            <ul>
+                <li><strong>Notion</strong> - Kõik märkmed ja plaanid ühes kohas.</li>
+                <li><strong>Anki / Quizlet</strong> - Digitaalsed mälukaardid kiiremaks meeldejätmiseks.</li>
+                <li><strong>Forest</strong> - Äpp, mis aitab õppimise ajal telefonist eemale hoida.</li>
+                <li><strong>ChatGPT</strong> - Kasuta seda kui isiklikku tuutorit, et küsida selgitusi.</li>
+            </ul>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 EduStep Kooliprojekt | Loodud õpilastelt õpilastele</p>
+    </footer>
+</div>
+
+<script>
+    const tsitaadid = [
+        "Edu on väikeste pingutuste summa, mida korratakse päevast päeva.",
+        "Sa ei pea olema suurepärane, et alustada, aga sa pead alustama, et olla suurepärane.",
+        "Tänased pingutused on homsed võimalused.",
+        "Õppimine on ainus asi, mida meel kunagi ei väsi ega kahetse.",
+        "Iga eksimus on samm lähemale lahendusele.",
+        "Distsipliin viib sind sinna, kuhu motivatsioon üksi ei küündi."
+    ];
+
+    function uusTsitaat() {
+        const display = document.getElementById("tsitaat-display");
+        const randomIndex = Math.floor(Math.random() * tsitaadid.length);
+        display.style.opacity = 0;
+        setTimeout(() => {
+            display.innerText = '"' + tsitaadid[randomIndex] + '"';
+            display.style.opacity = 1;
+        }, 200);
+    }
+</script>
