@@ -3,282 +3,417 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KURSIL | Motivatsiooni ja Õppimise Arhitektuur</title>
-    
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;1,400&family=Montserrat:wght@100;300;400;600&display=swap" rel="stylesheet">
-    
+    <title>Õpimotivatsioon - Õppimise Lihtsustamine</title>
     <style>
-        :root {
-            --bg: #F8F7F4;
-            --accent: #1A1A1A;
-            --secondary: #7C7C7C;
-            --white: #FFFFFF;
-            --clay: #E2DFD9;
-            --border: rgba(0, 0, 0, 0.08);
-            --shadow: 0 30px 60px rgba(0,0,0,0.05);
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        html { scroll-behavior: smooth; }
+        :root {
+            --white: #ffffff;
+            --gray-light: #f5f5f5;
+            --gray-medium: #d4d4d4;
+            --gray-dark: #808080;
+            --beige: #e8dcc8;
+            --beige-dark: #c9b8a0;
+            --text-dark: #3a3a3a;
+        }
 
         body {
-            font-family: 'Montserrat', sans-serif;
-            background-color: var(--bg);
-            color: var(--accent);
-            line-height: 1.8;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background-color: var(--white);
         }
 
-        /* --- NAVIGATION --- */
-        nav {
-            position: fixed;
-            top: 0; width: 100%;
-            padding: 25px 5%;
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header & Navigation */
+        header {
+            background-color: var(--white);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .navbar {
+            padding: 1rem 0;
+        }
+
+        .navbar .container {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            z-index: 1000;
-            background: rgba(248, 247, 244, 0.85);
-            backdrop-filter: blur(15px);
-            border-bottom: 1px solid var(--border);
         }
 
         .logo {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 1.8rem;
-            font-weight: 600;
-            letter-spacing: 4px;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--beige-dark);
         }
 
-        /* --- HERO --- */
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-menu a:hover {
+            color: var(--beige-dark);
+        }
+
+        /* Hero Section */
         .hero {
-            height: 90vh;
+            background: linear-gradient(135deg, var(--beige) 0%, var(--gray-light) 100%);
+            padding: 6rem 2rem;
+            text-align: center;
+            min-height: 500px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hero-content h1 {
+            font-size: 3rem;
+            color: var(--text-dark);
+            margin-bottom: 1rem;
+        }
+
+        .hero-content p {
+            font-size: 1.3rem;
+            color: var(--gray-dark);
+            margin-bottom: 2rem;
+        }
+
+        .cta-button {
+            background-color: var(--beige-dark);
+            color: var(--white);
+            padding: 12px 30px;
+            font-size: 1.1rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .cta-button:hover {
+            background-color: var(--gray-dark);
+        }
+
+        /* Tips Section */
+        .tips {
+            padding: 4rem 2rem;
+            background-color: var(--white);
+        }
+
+        .tips h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: var(--text-dark);
+        }
+
+        .tips-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .tip-card {
+            background-color: var(--gray-light);
+            padding: 2rem;
+            border-radius: 8px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-left: 4px solid var(--beige-dark);
+        }
+
+        .tip-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .tip-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .tip-card h3 {
+            color: var(--beige-dark);
+            margin-bottom: 1rem;
+        }
+
+        .tip-card p {
+            color: var(--text-dark);
+            line-height: 1.8;
+        }
+
+        /* Resources Section */
+        .resources {
+            padding: 4rem 2rem;
+            background-color: var(--beige);
+        }
+
+        .resources h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: var(--text-dark);
+        }
+
+        .resources-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .resource-item {
+            background-color: var(--white);
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+
+        .resource-item h3 {
+            color: var(--beige-dark);
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid var(--beige);
+            padding-bottom: 0.5rem;
+        }
+
+        .resource-item ul {
+            list-style: none;
+        }
+
+        .resource-item li {
+            margin-bottom: 0.8rem;
+        }
+
+        .resource-item a {
+            color: var(--gray-dark);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .resource-item a:hover {
+            color: var(--beige-dark);
+            text-decoration: underline;
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 4rem 2rem;
+            background-color: var(--gray-light);
+        }
+
+        .contact h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: var(--text-dark);
+        }
+
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
             display: flex;
             flex-direction: column;
-            justify-content: center;
-            padding: 0 10%;
-            background: linear-gradient(to bottom, #F0EFEA, var(--bg));
+            gap: 1.5rem;
         }
 
-        .hero h1 {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: clamp(3rem, 8vw, 6rem);
-            line-height: 1;
-            font-weight: 400;
-            margin-bottom: 20px;
+        .contact-form input,
+        .contact-form textarea {
+            padding: 1rem;
+            border: 2px solid var(--gray-medium);
+            border-radius: 5px;
+            font-family: inherit;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
         }
 
-        /* --- SEKTSIOONID --- */
-        .section {
-            padding: 100px 10%;
-            max-width: 1400px;
-            margin: 0 auto;
+        .contact-form input:focus,
+        .contact-form textarea:focus {
+            outline: none;
+            border-color: var(--beige-dark);
         }
 
-        .card {
-            background: var(--white);
-            padding: 50px;
-            border-radius: 2px;
-            border: 1px solid var(--border);
-            box-shadow: var(--shadow);
-            margin-bottom: 50px;
-        }
-
-        /* --- PROGRESS BARID --- */
-        .progress-container { margin: 30px 0; }
-        .progress-label { display: flex; justify-content: space-between; font-size: 0.8rem; text-transform: uppercase; margin-bottom: 10px; letter-spacing: 1px; }
-        .progress-bg { background: var(--bg); border-radius: 50px; height: 8px; overflow: hidden; }
-        .progress-fill { background: var(--accent); height: 100%; width: 0; transition: width 2s cubic-bezier(0.16, 1, 0.3, 1); }
-
-        /* --- MOTIVATSIOONI GENERATOR --- */
-        .quote-box {
-            text-align: center;
-            padding: 60px;
-            background: var(--accent);
+        .submit-button {
+            background-color: var(--beige-dark);
             color: var(--white);
-            margin: 50px 0;
-        }
-
-        #quote-text { font-family: 'Cormorant Garamond', serif; font-size: 2.2rem; font-style: italic; margin-bottom: 30px; min-height: 100px; }
-
-        /* --- TO-DO / TEST --- */
-        .interactive-box { background: var(--clay); padding: 40px; margin-top: 20px; }
-        .hidden { display: none; margin-top: 15px; font-style: italic; color: #555; }
-
-        button {
-            background: var(--accent);
-            color: white;
+            padding: 12px 30px;
+            font-size: 1.1rem;
             border: none;
-            padding: 15px 30px;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            font-size: 0.7rem;
+            border-radius: 5px;
             cursor: pointer;
-            transition: 0.3s;
+            transition: background-color 0.3s ease;
         }
 
-        button:hover { opacity: 0.8; transform: translateY(-2px); }
+        .submit-button:hover {
+            background-color: var(--gray-dark);
+        }
 
-        /* --- TABEL / PLANN --- */
-        table { width: 100%; border-collapse: collapse; margin-top: 30px; }
-        th, td { text-align: left; padding: 20px; border-bottom: 1px solid var(--border); }
-        th { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; }
+        /* Footer */
+        footer {
+            background-color: var(--text-dark);
+            color: var(--white);
+            text-align: center;
+            padding: 2rem;
+        }
 
-        footer { background: var(--accent); color: white; padding: 80px 10%; text-align: center; }
+        footer p {
+            margin-bottom: 0.5rem;
+        }
 
-        /* ANIMATSIOON */
-        .reveal { opacity: 0; transform: translateY(30px); transition: 1s all ease; }
-        .reveal.active { opacity: 1; transform: translateY(0); }
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero-content h1 {
+                font-size: 2rem;
+            }
+
+            .nav-menu {
+                gap: 1rem;
+            }
+
+            .tips-grid,
+            .resources-grid {
+                grid-template-columns: 1fr;
+            }
+        }
     </style>
 </head>
 <body>
+    <header>
+        <nav class="navbar">
+            <div class="container">
+                <div class="logo">📚 Õpimotivatsioon</div>
+                <ul class="nav-menu">
+                    <li><a href="#home">Avaleht</a></li>
+                    <li><a href="#tips">Nõuanded</a></li>
+                    <li><a href="#resources">Ressursid</a></li>
+                    <li><a href="#contact">Kontakt</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
 
-<nav>
-    <div class="logo">KURSIL</div>
-    <div style="font-size: 0.7rem; letter-spacing: 2px;">TEADUS • EDU • FOOKUS</div>
-</nav>
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>Motiveerivate Õpingute Maailm</h1>
+            <p>Lihtsustame õppimist ja panustame sinu edule</p>
+            <button class="cta-button">Alusta Siin</button>
+        </div>
+    </section>
 
-<header class="hero">
-    <p style="letter-spacing: 5px; color: var(--secondary); margin-bottom: 20px;">PROJEKT 2026</p>
-    <h1>Õppimine ei ole <br><em>annne</em>, vaid süsteem.</h1>
-    <p style="max-width: 600px; margin-top: 30px; color: var(--secondary);">Ühendame psühholoogia ja tehnoloogia, et muuta sinu koolikogemus tähendusrikkaks.</p>
-</header>
-
-<main>
-    <section class="section">
-        <div class="card reveal">
-            <h2 style="font-family: 'Cormorant Garamond', serif; font-size: 3rem; margin-bottom: 20px;">01. Motivatsiooni loomus</h2>
-            <p>Motivatsioon on kütus, aga süsteem on mootor. Me jagame motivatsiooni kaheks:</p>
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-top: 30px;">
-                <div>
-                    <strong>Sisemine (Intrinsic)</strong>
-                    <p style="font-size: 0.9rem; color: var(--secondary);">Sinu isiklik huvi, soov areneda ja mõista maailma. See on pikaajaline ja purunematu.</p>
+    <section id="tips" class="tips">
+        <div class="container">
+            <h2>Õppimise Nõuanded</h2>
+            <div class="tips-grid">
+                <div class="tip-card">
+                    <div class="tip-icon">🎯</div>
+                    <h3>Selged Eesmärgid</h3>
+                    <p>Määra selged ja realistlikud õpieesmärgid. Jagades suured eesmärgid väiksemateks sammudeks, saavutad rohkem.</p>
                 </div>
-                <div>
-                    <strong>Väline (Extrinsic)</strong>
-                    <p style="font-size: 0.9rem; color: var(--secondary);">Hinded, tunnustus, hirm ebaõnnestumise ees. See aitab alustada, aga sellest üksi ei piisa.</p>
+
+                <div class="tip-card">
+                    <div class="tip-icon">⏰</div>
+                    <h3>Ajahaldus</h3>
+                    <p>Planeeri oma õpiaeg hästi. Kasuta Pomodoro tehnikat: 25 minutit õppimist ja 5 minutit puhkust.</p>
+                </div>
+
+                <div class="tip-card">
+                    <div class="tip-icon">💪</div>
+                    <h3>Järjepidevus</h3>
+                    <p>Õpi regulaarselt, mitte ainult enne eksameid. Igapäevane õppimine tugevdab teadmisi.</p>
+                </div>
+
+                <div class="tip-card">
+                    <div class="tip-icon">🤝</div>
+                    <h3>Ühisõppimine</h3>
+                    <p>Õpi klassikaaslastega. Ühine töö muudab õppimise nauditavamaks ja efektiivsemaks.</p>
+                </div>
+
+                <div class="tip-card">
+                    <div class="tip-icon">🧠</div>
+                    <h3>Aktiivne Õppimine</h3>
+                    <p>Tee märkmeid, tee testküsimusi ja selgita materjali teistele. Aktiivne õppimine parandab mälestamist.</p>
+                </div>
+
+                <div class="tip-card">
+                    <div class="tip-icon">😴</div>
+                    <h3>Puhkus ja Uni</h3>
+                    <p>Puhka piisavalt. Hea uni aitab sul paremini keskenduda ja informatsiooni säilitada.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="section" style="background: var(--white);">
-        <h2 style="font-family: 'Cormorant Garamond', serif; font-size: 2.5rem; text-align: center;">Efektiivsuse kordajad</h2>
-        <div class="progress-container">
-            <div class="progress-label"><span>Teistele õpetamine (Lapsehoidja efekt)</span><span>90%</span></div>
-            <div class="progress-bg"><div class="progress-fill" style="width: 90%;"></div></div>
-        </div>
-        <div class="progress-container">
-            <div class="progress-label"><span>Regulaarne unerežiim (Mälu konsolideerimine)</span><span>85%</span></div>
-            <div class="progress-bg"><div class="progress-fill" style="width: 85%;"></div></div>
-        </div>
-        <div class="progress-container">
-            <div class="progress-label"><span>Kordamine 24h jooksul</span><span>60%</span></div>
-            <div class="progress-bg"><div class="progress-fill" style="width: 60%;"></div></div>
-        </div>
-        <div class="progress-container">
-            <div class="progress-label"><span>Passiivne lugemine</span><span>10%</span></div>
-            <div class="progress-bg"><div class="progress-fill" style="width: 10%;"></div></div>
-        </div>
-    </section>
+    <section id="resources" class="resources">
+        <div class="container">
+            <h2>Kasulikud Ressursid</h2>
+            <div class="resources-grid">
+                <div class="resource-item">
+                    <h3>Õppematerjal</h3>
+                    <ul>
+                        <li><a href="#">Khan Academy</a></li>
+                        <li><a href="#">Coursera</a></li>
+                        <li><a href="#">YouTube Õppekanalisid</a></li>
+                        <li><a href="#">Eesti Keele Instituut</a></li>
+                    </ul>
+                </div>
 
-    <section class="quote-box">
-        <div id="quote-text">"Edu on järjepidevus, mitte sähvatus."</div>
-        <button onclick="newQuote()" style="background: white; color: black;">Uus perspektiiv</button>
-    </section>
+                <div class="resource-item">
+                    <h3>Produktiivsuse Vahendid</h3>
+                    <ul>
+                        <li><a href="#">Todoist - Ülesannete Haldus</a></li>
+                        <li><a href="#">Forest - Keskendumise Rakendus</a></li>
+                        <li><a href="#">Notion - Märkmete Tegemine</a></li>
+                        <li><a href="#">Trello - Projekti Planeerimine</a></li>
+                    </ul>
+                </div>
 
-    <section class="section">
-        <div class="card reveal">
-            <h2 style="font-family: 'Cormorant Garamond', serif; font-size: 2.5rem;">Eneseanalüüs</h2>
-            <div class="interactive-box">
-                <p>Kas sa kasutad õppimisel pause?</p>
-                <button onclick="toggleTest('t1')">Vasta</button>
-                <p id="t1" class="hidden">Pomodoro (25+5) hoiab aju töövõimelisena ja väldib üleväsimust.</p>
-            </div>
-            <div class="interactive-box">
-                <p>Kas sa kordad materjali ilma vihikut vaatamata?</p>
-                <button onclick="toggleTest('t2')">Vasta</button>
-                <p id="t2" class="hidden">Seda nimetatakse aktiivseks meenutamiseks (Active Recall) ja see on kõige kiirem viis õppimiseks.</p>
+                <div class="resource-item">
+                    <h3>Tervisealane Teave</h3>
+                    <ul>
+                        <li><a href="#">Meditatsiooni Rakendused</a></li>
+                        <li><a href="#">Harjutuse Juhised</a></li>
+                        <li><a href="#">Uni Parandamise Viisid</a></li>
+                        <li><a href="#">Stress Maandamise Tehnikad</a></li>
+                    </ul>
+                </div>
             </div>
         </div>
     </section>
 
-    <section class="section">
-        <h2 style="font-family: 'Cormorant Garamond', serif; font-size: 2.5rem;">Strateegiline nädalaplaan</h2>
-        <table>
-            <thead>
-                <tr><th>Päev</th><th>Fookus</th><th>Meetod</th></tr>
-            </thead>
-            <tbody>
-                <tr><td>Esmaspäev</td><td>Uus materjal</td><td>Pomodoro (4 tsüklit)</td></tr>
-                <tr><td>Teisipäev</td><td>Keeled / Sõnavara</td><td>Mälukaardid (Anki)</td></tr>
-                <tr><td>Kolmapäev</td><td>Kordamine</td><td>Aktiivne meenutamine</td></tr>
-                <tr><td>Neljapäev</td><td>Rasked ülesanded</td><td>Feynmani meetod</td></tr>
-                <tr><td>Reede</td><td>Kokkuvõte</td><td>Mind-mapping</td></tr>
-            </tbody>
-        </table>
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2>Otsi Ühendust</h2>
+            <form class="contact-form">
+                <input type="text" placeholder="Sinu Nimi" required>
+                <input type="email" placeholder="Sinu E-posti Aadress" required>
+                <textarea placeholder="Sinu Sõnum" rows="5" required></textarea>
+                <button type="submit" class="submit-button">Saada</button>
+            </form>
+        </div>
     </section>
 
-    <section class="section" style="font-size: 0.8rem; color: var(--secondary); border-top: 1px solid var(--border);">
-        <p><strong>Infoallikad ja inspiratsioon:</strong><br>
-        • Dr. Barbara Oakley "Learning How to Learn"<br>
-        • Carol Dweck "Mindset: The New Psychology of Success"<br>
-        • Cal Newport "Deep Work"<br>
-        • Tehniline teostus: Gemini AI x Sinu visioon</p>
-    </section>
-</main>
-
-<footer>
-    <div class="logo" style="margin-bottom: 20px;">KURSIL</div>
-    <p>© 2026 Kooliprojekt | Loodud teadlikuks arenguks</p>
-</footer>
-
-<script>
-    // Tsitaadid
-    const quotes = [
-        "Edu tuleb järjepidevusest, mitte juhusest.",
-        "Sa oled võimeline rohkemaks, kui su aju praegu usub.",
-        "Ära oota motivatsiooni, loo see läbi esimese sammu.",
-        "Pingutus on märk sellest, et su närviseosed tugevnevad.",
-        "Iga eksimus on tasuta õppetund.",
-        "Keskendu protsessile, tulemus järgneb ise."
-    ];
-
-    function newQuote() {
-        const txt = document.getElementById('quote-text');
-        const rand = Math.floor(Math.random() * quotes.length);
-        txt.style.opacity = 0;
-        setTimeout(() => {
-            txt.innerText = '"' + quotes[rand] + '"';
-            txt.style.opacity = 1;
-        }, 400);
-    }
-    document.getElementById('quote-text').style.transition = 'opacity 0.4s';
-
-    // Testi funktsioon
-    function toggleTest(id) {
-        document.getElementById(id).classList.toggle("hidden");
-    }
-
-    // Scroll Reveal
-    window.addEventListener('scroll', () => {
-        const reveals = document.querySelectorAll('.reveal');
-        reveals.forEach(el => {
-            const windowHeight = window.innerHeight;
-            const revealTop = el.getBoundingClientRect().top;
-            if (revealTop < windowHeight - 100) el.classList.add('active');
-        });
-    });
-
-    // Aktiveeri progressiribad kerimisel
-    window.onload = () => {
-        const fills = document.querySelectorAll('.progress-fill');
-        fills.forEach(f => {
-            const w = f.style.width;
-            f.style.width = '0';
-            setTimeout(() => f.style.width = w, 500);
-        });
-    };
-</script>
-
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 Õpimotivatsioon. Kõik õigused kaitstud.</p>
+            <p>Autoriõigus kuulub õpilastele, kes tahavad õnnestuda.</p>
+        </div>
+    </footer>
 </body>
 </html>
